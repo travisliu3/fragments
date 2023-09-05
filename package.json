@@ -11,5 +11,8 @@
     "url": "git+https://github.com/travisliu3/fragments.git"
   },
   "author": "Travis Liu",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "prettier": "3.0.3"
+  }
 }
