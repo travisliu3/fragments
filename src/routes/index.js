@@ -10,6 +10,7 @@ const { authenticate } = require('../auth');
 const router = express.Router();
 
 const { createSuccessResponse } = require('../response');
+const logger = require('../logger');
 
 /**
  * Expose all of our API routes on /v1/* to include an API version.
@@ -24,6 +25,7 @@ router.get('/', (req, res) => {
   // Client's shouldn't cache this response (always request it fresh)
   res.setHeader('Cache-Control', 'no-cache');
 
+  logger.info('Health check route gets Executed');
   // Send a 200 'OK' response
   res.status(200).json(
     createSuccessResponse({

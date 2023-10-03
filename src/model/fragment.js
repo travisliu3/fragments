@@ -14,6 +14,8 @@ const {
   deleteFragment,
 } = require('./data');
 
+const logger = require('../logger');
+
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     if (!type || !ownerId) {
@@ -75,6 +77,7 @@ class Fragment {
       if (fragment) {
         return fragment;
       } else {
+        logger.error('No fragment is found');
         throw new Promise.reject('No fragment found');
       }
     });

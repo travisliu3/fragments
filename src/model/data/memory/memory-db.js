@@ -1,3 +1,5 @@
+const logger = require('../../../logger');
+
 const validateKey = (key) => typeof key === 'string';
 
 class MemoryDB {
@@ -32,11 +34,14 @@ class MemoryDB {
    */
   put(primaryKey, secondaryKey, value) {
     if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
+      logger.error(
+        `primary or the secondary key is not string in PUT method primaryKey=${primaryKey} & secondaryKey=${secondaryKey}`
+      );
       throw new Error(
         `primaryKey and secondaryKey strings are required, got primaryKey=${primaryKey}, secondaryKey=${secondaryKey}`
       );
     }
-
+    logger.debug('All keys are valid in put method of memory-db');
     const db = this.db;
     // Make sure the `primaryKey` exists, or create
     db[primaryKey] = db[primaryKey] || {};
@@ -53,6 +58,7 @@ class MemoryDB {
    */
   query(primaryKey) {
     if (!validateKey(primaryKey)) {
+      logger.error(`primary key is not string in query method primaryKey=${primaryKey}`);
       throw new Error(`primaryKey string is required, got primaryKey=${primaryKey}`);
     }
 
@@ -70,6 +76,9 @@ class MemoryDB {
    */
   async del(primaryKey, secondaryKey) {
     if (!(validateKey(primaryKey) && validateKey(secondaryKey))) {
+      logger.error(
+        `primary or the secondary key is not string in del method primaryKey=${primaryKey} & secondaryKey=${secondaryKey}`
+      );
       throw new Error(
         `primaryKey and secondaryKey strings are required, got primaryKey=${primaryKey}, secondaryKey=${secondaryKey}`
       );
@@ -77,11 +86,14 @@ class MemoryDB {
 
     // Throw if trying to delete a key that doesn't exist
     if (!(await this.get(primaryKey, secondaryKey))) {
+      logger.error(
+        `primary or the secondary key does not exist in del method primaryKey=${primaryKey} & secondaryKey=${secondaryKey}`
+      );
       throw new Error(
         `missing entry for primaryKey=${primaryKey} and secondaryKey=${secondaryKey}`
       );
     }
-
+    logger.debug('All keys are valid in del method of memory-db');
     const db = this.db;
     delete db[primaryKey][secondaryKey];
     return Promise.resolve();

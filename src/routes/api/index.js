@@ -8,7 +8,7 @@ const router = express.Router();
 
 const contentType = require('content-type');
 const { Fragment } = require('../../model/fragment');
-
+const logger = require('../../logger');
 // Define our first route, which will be: GET /v1/fragments
 router.get('/fragments', require('./get'));
 
@@ -22,6 +22,7 @@ const rawBody = () =>
       // a Buffer (e.g., `Buffer.isBuffer(req.body) === true`). If not, `req.body`
       // will be equal to an empty Object `{}` and `Buffer.isBuffer(req.body) === false`
       const { type } = contentType.parse(req);
+      logger.debug({ type }, 'check if type is supported');
       return Fragment.isSupportedType(type);
     },
   });

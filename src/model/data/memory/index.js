@@ -1,4 +1,5 @@
 const MemoryDB = require('./memory-db');
+const logger = require('../../../logger');
 
 // Create two in-memory databases: one for fragment metadata and the other for raw data
 const data = new MemoryDB();
@@ -6,21 +7,25 @@ const metadata = new MemoryDB();
 
 // Write a fragment's metadata to memory db. Returns a Promise
 function writeFragment(fragment) {
+  logger.debug('write json data to db');
   return metadata.put(fragment.ownerId, fragment.id, fragment);
 }
 
 // Read a fragment's metadata from memory db. Returns a Promise
 function readFragment(ownerId, id) {
+  logger.debug('read json data from db');
   return metadata.get(ownerId, id);
 }
 
 // Write a fragment's data buffer to memory db. Returns a Promise
 function writeFragmentData(ownerId, id, buffer) {
+  logger.debug('write buffer data to db');
   return data.put(ownerId, id, buffer);
 }
 
 // Read a fragment's data from memory db. Returns a Promise
 function readFragmentData(ownerId, id) {
+  logger.debug('read buffer data from db');
   return data.get(ownerId, id);
 }
 
