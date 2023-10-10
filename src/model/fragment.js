@@ -156,7 +156,18 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    return value.includes('text/plain');
+    return value.includes(
+      'text/plain',
+      'text/html',
+      'text/css',
+      'text/javascript',
+      'text/json',
+      'text/xml',
+      'text/csv',
+      'text/markdown',
+      'text/tab-separated-values',
+      'application/json'
+    );
   }
 }
 

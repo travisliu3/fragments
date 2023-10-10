@@ -21,6 +21,9 @@ module.exports = (req, res) => {
     res.header('Access-Control-Expose-Headers', 'location');
     res.location(host + `/v1/fragments/${fragmentData.id}`);
 
+    // save fragment
+    fragmentData.save();
+
     res.status(201).json(createSuccessResponse({ fragment: fragmentData }));
   }
   logger.warn('Content-Type is not supported for POST');
