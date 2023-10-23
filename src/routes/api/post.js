@@ -20,8 +20,9 @@ module.exports = async (req, res) => {
     // ADD Location header
     res.location(host + `/v1/fragments/${fragmentData.id}`);
 
-    // save fragment
+    // save fragment metadata
     await fragmentData.save();
+    // save fragment data
     await fragmentData.setData(req.body);
 
     res.status(201).json(createSuccessResponse({ fragment: fragmentData }));
