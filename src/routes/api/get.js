@@ -30,6 +30,8 @@ module.exports = async (req, res) => {
       const fileExtension = path.extname(req.path);
 
       const fragment2 = await Fragment.byId(req.user, req.params.id.replace(/\..+$/, ''));
+      res.type(fragment2.type);
+      logger.info(fragment2.type, 'Setting content-type');
       const data = (await fragment2.getData()).toString();
       if (fileExtension == '.html') {
         logger.info(fileExtension, 'url .ext');
@@ -38,7 +40,8 @@ module.exports = async (req, res) => {
         const html = md.render(markdownText);
         res.status(200).json(html);
       } else if (data) {
-        res.status(200).json(data);
+        logger.debug('Content-Type - text/plain');
+        res.status(200).send(data);
       } else {
         res
           .status(415)
