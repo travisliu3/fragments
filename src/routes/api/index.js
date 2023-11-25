@@ -13,7 +13,7 @@ const logger = require('../../logger');
 router.get('/fragments', require('./get'));
 router.get('/fragments/:id', require('./get'));
 router.get('/fragments/:id/info', require('./get'));
-
+router.delete('/fragments/:id', require('./delete'));
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
   express.raw({

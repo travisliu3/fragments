@@ -122,7 +122,7 @@ class Fragment {
     logger.info('data is Buffer');
     this.size = data.length;
     this.updated = new Date();
-    writeFragmentData(this.ownerId, this.id, data);
+    await writeFragmentData(this.ownerId, this.id, data);
   }
 
   /**
