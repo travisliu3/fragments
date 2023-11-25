@@ -49,6 +49,7 @@
   ],
   "family": "fragments-task",
   "executionRoleArn": "arn:aws:iam::828975709583:role/LabRole",
+  "taskRoleArn": "arn:aws:iam::828975709583:role/LabRole",
   "networkMode": "awsvpc",
   "revision": 3,
   "volumes": [],
