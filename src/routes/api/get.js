@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
         const md = new MarkdownIt();
         const markdownText = md.render(data);
         const html = md.render(markdownText);
-        res.status(200).json(html);
+        res.status(200).send(html);
       } else if (data) {
         logger.debug('Content-Type - text/plain');
         res.status(200).send(data);

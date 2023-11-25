@@ -52,7 +52,7 @@ describe('GET /v1/fragments', () => {
       .get(`/v1/fragments/${arrPost.id}`)
       .auth('user1@email.com', 'password1');
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual('This is a fragment');
+    expect(res.text).toEqual('This is a fragment');
   });
 
   // GET /fragments/:id/info returns an existing fragment's metadata.
@@ -87,6 +87,6 @@ describe('GET /v1/fragments', () => {
     const markdownText = md.render('This is a fragment');
     const html = md.render(markdownText);
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual(html);
+    expect(res.text).toEqual(html);
   });
 });
