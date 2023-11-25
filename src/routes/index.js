@@ -12,6 +12,8 @@ const router = express.Router();
 const { createSuccessResponse } = require('../response');
 const logger = require('../logger');
 
+const { hostname } = require('os');
+
 /**
  * Expose all of our API routes on /v1/* to include an API version.
  */
@@ -32,6 +34,7 @@ router.get('/', (req, res) => {
       author,
       githubUrl: 'https://github.com/travisliu3/fragments',
       version,
+      hostname: hostname(),
     })
   );
 });
