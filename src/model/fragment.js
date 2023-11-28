@@ -47,12 +47,14 @@ class Fragment {
       this.created = created;
     } else {
       this.created = new Date();
+      this.created = this.created.toISOString();
     }
 
     if (updated) {
       this.updated = updated;
     } else {
       this.updated = new Date();
+      this.updated = this.updated.toISOString();
     }
   }
 
@@ -89,17 +91,18 @@ class Fragment {
    * @param {string} id fragment's id
    * @returns Promise<void>
    */
-  static delete(ownerId, id) {
-    return deleteFragment(ownerId, id);
+  static async delete(ownerId, id) {
+    return await deleteFragment(ownerId, id);
   }
 
   /**
    * Saves the current fragment to the database
    * @returns Promise<void>
    */
-  save() {
+  async save() {
     this.updated = new Date();
-    writeFragment(this);
+    this.updated = this.updated.toISOString();
+    await writeFragment(this);
   }
 
   /**
@@ -122,6 +125,7 @@ class Fragment {
     logger.info('data is Buffer');
     this.size = data.length;
     this.updated = new Date();
+    this.updated = this.updated.toISOString();
     await writeFragmentData(this.ownerId, this.id, data);
   }
 

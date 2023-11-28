@@ -41,3 +41,14 @@ Content-Length: 9
 [Asserts]
 body == "Hello S3!"
 
+DELETE {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+HTTP/1.1 200
+
+GET {{url}}
+[BasicAuth]
+user1@email.com:password1
+
+HTTP/1.1 404
