@@ -84,8 +84,7 @@ describe('GET /v1/fragments', () => {
       .get(`/v1/fragments/${arrPost.id}.html`)
       .auth('user1@email.com', 'password1');
     const md = new MarkdownIt();
-    const markdownText = md.render('This is a fragment');
-    const html = md.render(markdownText);
+    const html = md.render('This is a fragment');
     expect(res.statusCode).toBe(200);
     expect(res.text).toEqual(html);
   });
