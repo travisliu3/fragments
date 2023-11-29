@@ -82,6 +82,7 @@ jobs:
           ECR_REPO: fragments
           VERSION_TAG: ${{ github.ref_name }}
           AWS_S3_BUCKET_NAME: tliu84-fragments
+          AWS_DYNAMODB_TABLE_NAME: fragments
         with:
           task-definition: fragments-definition.json
           container-name: fragments
