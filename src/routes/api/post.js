@@ -27,6 +27,7 @@ module.exports = async (req, res) => {
 
     res.status(201).json(createSuccessResponse({ fragment: fragmentData }));
   } else {
+    // req.body is NOT Buffer
     logger.warn('Content-Type is not supported for POST');
     res
       .status(415)
