@@ -14,7 +14,7 @@ router.get('/fragments', require('./get'));
 router.get('/fragments/:id', require('./get'));
 router.get('/fragments/:id/info', require('./get'));
 router.delete('/fragments/:id', require('./delete'));
-router.put('/fragments/:id', require('./put'));
+
 // Support sending various Content-Types on the body up to 5M in size
 const rawBody = () =>
   express.raw({
@@ -33,5 +33,6 @@ const rawBody = () =>
 // Use a raw body parser for POST, which will give a `Buffer` Object or `{}` at `req.body`
 // You can use Buffer.isBuffer(req.body) to test if it was parsed by the raw body parser.
 router.post('/fragments', rawBody(), require('./post'));
+router.put('/fragments/:id', rawBody(), require('./put'));
 
 module.exports = router;
