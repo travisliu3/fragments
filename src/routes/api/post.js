@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
       .json(
         createErrorResponse(
           415,
-          'The content-type of the fragment being sent with the request is not supported'
+          'The Content-Type of the fragment being sent with the request is not supported'
         )
       );
   }
