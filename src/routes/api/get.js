@@ -67,12 +67,12 @@ async function extHandler(fileExtension, data, type) {
       if (fileExtension != '.txt') {
         return 0;
       } else {
-        return data;
+        return data.toString();
       }
     } else if (type.includes('text/markdown')) {
       logger.info(fileExtension, 'url .ext');
       const md = new MarkdownIt();
-      const html = md.render(data);
+      const html = md.render(data.toString());
       if (fileExtension == '.html') {
         return html;
       } else if (fileExtension == '.txt') {
@@ -86,7 +86,7 @@ async function extHandler(fileExtension, data, type) {
     } else if (type.includes('text/html')) {
       if (fileExtension == '.txt') {
         // Create a new JSDOM instance
-        const dom = new JSDOM(data);
+        const dom = new JSDOM(data.toString());
 
         // Access the document property of the JSDOM instance
         const doc = dom.window.document;
@@ -97,21 +97,21 @@ async function extHandler(fileExtension, data, type) {
         // Trim leading and trailing white spaces
         return textContent.trim();
       } else if (fileExtension == '.html') {
-        return data;
+        return data.toString();
       } else {
         return 0;
       }
     } else if (type.includes('application/json')) {
       if (fileExtension == '.txt') {
         // Use JSON.stringify to convert the JSON object to a string
-        var jsonString = JSON.stringify(data);
+        var jsonString = JSON.stringify(data.toString());
 
         // Remove quotes around the string
         var plainText = jsonString.slice(1, -1);
 
         return plainText;
       } else if (fileExtension == '.json') {
-        return data;
+        return data.toString();
       } else {
         return 0;
       }
