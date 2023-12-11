@@ -36,8 +36,8 @@ module.exports = async (req, res) => {
         const fragment = new Fragment(fragment2);
         res.type(fragment.type);
         logger.info(fragment.type, 'Setting content-type');
-        const data = (await fragment.getData()).toString();
-        const resData = extHandler(fileExtension, data, fragment.type);
+        const data = await fragment.getData();
+        const resData = await extHandler(fileExtension, data, fragment.type);
         if (resData) {
           res.status(200).send(resData);
         } else {
@@ -61,7 +61,7 @@ module.exports = async (req, res) => {
   }
 };
 
-function extHandler(fileExtension, data, type) {
+async function extHandler(fileExtension, data, type) {
   if (fileExtension != '') {
     if (type.includes('text/plain')) {
       if (fileExtension != '.txt') {
@@ -116,8 +116,10 @@ function extHandler(fileExtension, data, type) {
         return 0;
       }
     } else if (type.includes('image/png')) {
+      logger.info('This is image/png conversion');
       if (fileExtension == '.jpg') {
-        return sharp(data).jpeg({ quality: 80 }).toBuffer();
+        logger.info('This is conversion to jpg');
+        return await sharp(data).jpeg({ quality: 80 }).toBuffer();
       } else if (fileExtension == '.webp') {
         return sharp(data).webp({ quality: 80 }).toBuffer();
       } else if (fileExtension == '.gif') {
